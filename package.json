@@ -1,0 +1,49 @@
+{
+  "name": "quizpro",
+  "version": "2.0.0",
+  "description": "Professional quiz application with modern features and accessibility",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "start-node": "npx http-server -p 8000 -c-1",
+    "lint": "eslint script.js",
+    "format": "prettier --write *.html *.css *.js *.md",
+    "validate": "html-validate index.html",
+    "test": "echo \"No tests specified\" && exit 0",
+    "build": "echo \"No build process needed for vanilla JS app\" && exit 0"
+  },
+  "keywords": [
+    "quiz",
+    "trivia",
+    "education",
+    "javascript",
+    "html5",
+    "css3",
+    "accessibility",
+    "responsive",
+    "professional"
+  ],
+  "author": "QuizPro Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/username/quizpro.git"
+  },
+  "bugs": {
+    "url": "https://github.com/username/quizpro/issues"
+  },
+  "homepage": "https://github.com/username/quizpro#readme",
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "prettier": "^2.8.0",
+    "html-validate": "^7.0.0",
+    "http-server": "^14.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "defaults",
+    "not IE 11"
+  ]
+}

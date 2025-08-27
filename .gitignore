@@ -1,0 +1,31 @@
+# Node modules and package lock
+node_modules/
+package-lock.json
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# VS Code settings
+.vscode/
+
+# Logs
+*.log
+
+# Backup and old files
+*_old.*
+
+# Environment files
+.env
+.env.*
+
+# Misc
+*.swp
+*.swo
+
+# Coverage
+coverage/
+
+# Build output (if any in future)
+dist/
+build/

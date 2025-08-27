@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Professional interactive quiz application with multiple categories and difficulty levels" />
+    <meta name="keywords" content="quiz, trivia, education, learning, interactive" />
+    <meta name="author" content="Quiz Pro Team" />
+    
+    <!-- Preconnect to external domains for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Font Awesome with SRI for security -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    
+    <!-- Progressive Web App Meta Tags -->
+    <meta name="theme-color" content="#1f2847" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    
+    <link rel="stylesheet" href="style.css" />
+    <title>QuizPro - Professional Quiz Application</title>
+  </head>
+  <body>
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hide">
+      <div class="spinner"></div>
+      <p>Loading Quiz...</p>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="error-modal" class="modal hide" role="dialog" aria-labelledby="error-title" aria-describedby="error-message">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="error-title" class="modal-title">
+            <i class="fas fa-exclamation-triangle"></i>
+            Error
+          </h2>
+          <button class="modal-close" aria-label="Close modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p id="error-message">An error occurred. Please try again.</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" id="error-close">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Application Container -->
+    <div class="container" role="main">
+      <!-- Start Screen -->
+      <div class="start-screen" id="start-screen">
+        <header class="app-header">
+          <h1 class="heading" role="banner">
+            <i class="fas fa-brain"></i>
+            QuizPro
+          </h1>
+          <p class="subtitle">Challenge yourself with our professional quiz platform</p>
+        </header>
+
+        <form class="settings" id="quiz-settings" novalidate>
+          <div class="form-group">
+            <label for="num-questions" class="form-label">
+              <i class="fas fa-list-ol"></i>
+              Number of Questions:
+            </label>
+            <select id="num-questions" class="form-control" required aria-describedby="num-questions-help">
+              <option value="5">5 Questions</option>
+              <option value="10" selected>10 Questions</option>
+              <option value="15">15 Questions</option>
+              <option value="20">20 Questions</option>
+              <option value="30">30 Questions</option>
+              <option value="40">40 Questions</option>
+              <option value="50">50 Questions</option>
+            </select>
+            <small id="num-questions-help" class="form-help">Choose how many questions you want to answer</small>
+          </div>
+
+          <div class="form-group">
+            <label for="category" class="form-label">
+              <i class="fas fa-tags"></i>
+              Category:
+            </label>
+            <select id="category" class="form-control" aria-describedby="category-help">
+              <option value="">Any Category</option>
+              <option value="9">General Knowledge</option>
+              <option value="10">Entertainment: Books</option>
+              <option value="11">Entertainment: Film</option>
+              <option value="12">Entertainment: Music</option>
+              <option value="14">Entertainment: Television</option>
+              <option value="15">Entertainment: Video Games</option>
+              <option value="16">Entertainment: Board Games</option>
+              <option value="17">Science & Nature</option>
+              <option value="18">Science: Computers</option>
+              <option value="19">Science: Mathematics</option>
+              <option value="20">Mythology</option>
+              <option value="21">Sports</option>
+              <option value="22">Geography</option>
+              <option value="23">History</option>
+              <option value="24">Politics</option>
+              <option value="25">Art</option>
+              <option value="26">Celebrities</option>
+              <option value="27">Animals</option>
+              <option value="28">Vehicles</option>
+            </select>
+            <small id="category-help" class="form-help">Select a specific topic or leave as any category</small>
+          </div>
+
+          <div class="form-group">
+            <label for="difficulty" class="form-label">
+              <i class="fas fa-chart-line"></i>
+              Difficulty:
+            </label>
+            <select id="difficulty" class="form-control" aria-describedby="difficulty-help">
+              <option value="">Any Difficulty</option>
+              <option value="easy">Easy</option>
+              <option value="medium" selected>Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+            <small id="difficulty-help" class="form-help">Choose your preferred difficulty level</small>
+          </div>
+
+          <div class="form-group">
+            <label for="time" class="form-label">
+              <i class="fas fa-clock"></i>
+              Time per Question:
+            </label>
+            <select id="time" class="form-control" aria-describedby="time-help">
+              <option value="10">10 seconds</option>
+              <option value="15">15 seconds</option>
+              <option value="20" selected>20 seconds</option>
+              <option value="25">25 seconds</option>
+              <option value="30">30 seconds</option>
+              <option value="60">60 seconds</option>
+            </select>
+            <small id="time-help" class="form-help">Set the time limit for each question</small>
+          </div>
+
+          <button type="submit" class="btn btn-primary start" id="start-btn">
+            <i class="fas fa-play"></i>
+            Start Quiz
+          </button>
+        </form>
+      </div>
+
+      <!-- Quiz Screen -->
+      <div class="quiz hide" id="quiz-screen" role="main" aria-live="polite">
+        <div class="quiz-header">
+          <div class="timer" role="timer" aria-label="Question timer">
+            <div class="progress" aria-labelledby="timer-label">
+              <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+              <span class="progress-text" id="timer-label">20</span>
+            </div>
+          </div>
+          
+          <div class="question-stats">
+            <div class="score-display">
+              <i class="fas fa-star"></i>
+              Score: <span id="current-score">0</span>
+            </div>
+            <div class="streak-display">
+              <i class="fas fa-fire"></i>
+              Streak: <span id="current-streak">0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="question-wrapper">
+          <div class="number" role="status" aria-live="polite">
+            Question <span class="current">1</span>
+            <span class="total">/10</span>
+          </div>
+          <div class="question" id="question-text" role="heading" aria-level="2">
+            Loading question...
+          </div>
+          <div class="question-category" id="question-category"></div>
+        </div>
+
+        <div class="answer-wrapper" role="radiogroup" aria-labelledby="question-text">
+          <!-- Answers will be dynamically inserted here -->
+        </div>
+
+        <div class="quiz-controls">
+          <button class="btn btn-primary submit" id="submit-btn" disabled>
+            <i class="fas fa-check"></i>
+            Submit Answer
+          </button>
+          <button class="btn btn-secondary next hide" id="next-btn">
+            <i class="fas fa-arrow-right"></i>
+            Next Question
+          </button>
+          <button class="btn btn-warning skip" id="skip-btn">
+            <i class="fas fa-forward"></i>
+            Skip Question
+          </button>
+        </div>
+
+        <div class="quiz-footer">
+          <button class="btn btn-link quit" id="quit-btn" aria-label="Quit quiz">
+            <i class="fas fa-times"></i>
+            Quit Quiz
+          </button>
+        </div>
+      </div>
+
+      <!-- Results Screen -->
+      <div class="end-screen hide" id="results-screen" role="main">
+        <header class="results-header">
+          <h1 class="heading">
+            <i class="fas fa-trophy"></i>
+            Quiz Completed!
+          </h1>
+        </header>
+
+        <div class="results-content">
+          <div class="score-summary">
+            <div class="final-score-display">
+              <span class="score-text">Your Score:</span>
+              <div class="score-value">
+                <span class="final-score">0</span>
+                <span class="total-score">/10</span>
+              </div>
+              <div class="score-percentage">0%</div>
+            </div>
+          </div>
+
+          <div class="performance-stats">
+            <div class="stat-item">
+              <i class="fas fa-check-circle"></i>
+              <span class="stat-label">Correct</span>
+              <span class="stat-value" id="correct-count">0</span>
+            </div>
+            <div class="stat-item">
+              <i class="fas fa-times-circle"></i>
+              <span class="stat-label">Incorrect</span>
+              <span class="stat-value" id="incorrect-count">0</span>
+            </div>
+            <div class="stat-item">
+              <i class="fas fa-clock"></i>
+              <span class="stat-label">Avg Time</span>
+              <span class="stat-value" id="avg-time">0s</span>
+            </div>
+            <div class="stat-item">
+              <i class="fas fa-fire"></i>
+              <span class="stat-label">Best Streak</span>
+              <span class="stat-value" id="best-streak">0</span>
+            </div>
+          </div>
+
+          <div class="performance-message" id="performance-message">
+            <!-- Dynamic message based on performance -->
+          </div>
+        </div>
+
+        <div class="results-actions">
+          <button class="btn btn-primary restart" id="restart-btn">
+            <i class="fas fa-redo"></i>
+            Play Again
+          </button>
+          <button class="btn btn-secondary share" id="share-btn">
+            <i class="fas fa-share"></i>
+            Share Results
+          </button>
+          <button class="btn btn-info review" id="review-btn">
+            <i class="fas fa-list"></i>
+            Review Answers
+          </button>
+        </div>
+      </div>
+
+      <!-- Review Screen -->
+      <div class="review-screen hide" id="review-screen" role="main">
+        <header class="review-header">
+          <h1 class="heading">
+            <i class="fas fa-clipboard-list"></i>
+            Answer Review
+          </h1>
+          <button class="btn btn-secondary back-to-results" id="back-to-results">
+            <i class="fas fa-arrow-left"></i>
+            Back to Results
+          </button>
+        </header>
+        
+        <div class="review-content" id="review-content">
+          <!-- Review items will be dynamically inserted here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true">
+      <!-- Toast notifications will be dynamically inserted here -->
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
